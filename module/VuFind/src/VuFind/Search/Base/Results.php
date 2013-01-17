@@ -453,11 +453,11 @@ abstract class Results implements ServiceLocatorAwareInterface
         $token = strtok($input, " \t");
         do {
             // find double quoted tokens
-            if ($token{0}=='"' && substr($token, -1) != '"') {
+            if ($token[0]=='"' && substr($token, -1) != '"') {
                 $token .= ' '.strtok('"').'"';
             }
             // find single quoted tokens
-            if ($token{0}=="'" && substr($token, -1) != "'") {
+            if ($token[0]=="'" && substr($token, -1) != "'") {
                 $token .= ' '.strtok("'")."'";
             }
             // skip boolean operators
