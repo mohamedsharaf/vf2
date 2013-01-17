@@ -66,4 +66,15 @@ class ResultsTest extends \VuFindTest\Unit\TestCase
             $solr->spellingTokens('((("two words" OR single) NOT \'three word phrase\') AND single)')
         );
     }
+
+    /**
+     * Correct tokenization of ASCII `0`.
+     *
+     * @return void
+     */
+    public function testSpellingTokenizationOfZero ()
+    {
+        $solr = $this->getSearchManager()->setSearchClassId('Solr')->getResults();
+        $this->assertEquals(array('zero', '0', 'zero'), $solr->spellingTokens('zero 0 zero'));
+    }
 }

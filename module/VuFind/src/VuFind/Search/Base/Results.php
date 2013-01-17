@@ -464,7 +464,8 @@ abstract class Results implements ServiceLocatorAwareInterface
             if (!in_array($token, $joins)) {
                 $tokens[] = $token;
             }
-        } while ($token = strtok(" \t"));
+            $token = strtok(" \t");
+        } while ($token !== false);
 
         return $tokens;
     }
