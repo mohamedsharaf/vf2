@@ -151,7 +151,7 @@ class Backend implements BackendInterface
             }
         }
 
-        $response   = $this->connector->search($query, $offset, $limit, $params, $this->getQueryBuilder());
+        $response   = $this->connector->search($query, $offset, $limit, $this->getQueryBuilder(), $params);
         $collection = $this->getRecordCollectionFactory()->factory($this->deserialize($response));
         $this->injectSourceIdentifier($collection);
 
