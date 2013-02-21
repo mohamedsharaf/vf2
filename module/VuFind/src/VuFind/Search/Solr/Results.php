@@ -114,8 +114,17 @@ class Results extends BaseResults
             'highlight' => $this->getOptions()->highlightEnabled()
         );
 
+        // HACK
+        $offset = $this->getStartRecord() - 1;
+        $limit  = $this->getParams()->getLimit();
+
+        $s = $this->getServiceLocator()->get('VuFind\Search');
+        $q = \VuFindSearch\Query\QueryAdapter::create($this->getParams()->getSearchTerms());
+        $r = $s->search('biblio', $q, $offset, $limit, new \VuFindSearch\ParamBag(array('sort' => 'relevance')));
+
         // Perform the search:
         $this->rawResponse = $solr->search($params);
+        $this->rawResponse = $r->getRawResponse();
 
         // How many results were there?
         $this->resultTotal = isset($this->rawResponse['response']['numFound'])
